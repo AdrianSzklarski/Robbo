@@ -1,0 +1,16 @@
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css">
+    <title>{% block title %}{% endblock %} </title>
+</head>
+
+<div class="container container-fluid text-center">
+  <h1>Alert!</h1>
+  <h2>Please enter the numbers to proceed</h2>
+  <br>
+     <h3>{{answer}}</h3>
+  <br>
+
+    <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'home' %}">Powrót</a></button>
+  <br>
+</div>

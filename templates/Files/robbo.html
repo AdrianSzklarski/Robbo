@@ -1,0 +1,13 @@
+{% extends 'Files/base.html' %}
+
+{% block title %}Robot{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ positionX }}
+
+{#        <input type="submit" class="btn btn-second btn-lg" value="Wyślij">#}
+    </form>
+    <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'menu' %}">Powrót</a></button>
+{% endblock %}

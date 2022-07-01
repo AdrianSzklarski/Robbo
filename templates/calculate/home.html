@@ -1,0 +1,26 @@
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css">
+    <title>{% block title %}{% endblock %} </title>
+</head>
+
+<div class="container container-fluid text-center">
+    <h1>Robbo</h1>
+    <form class="" action="{% url 'calc' %}">
+        <label for="">Position X:</label>
+        <input type="text" name="a" autocomplete="off">
+        <br>
+        <br>
+        <label for="">Position Y:</label>
+        <input type="text" name="b" autocomplete="off">
+        <br>
+        <br>
+        <input type="checkbox" name="Manual"> Manual
+        <input type="checkbox" name="Automatic"> Automatic
+        <input type="checkbox" name="Error"> Error
+        <input type="checkbox" name="Idle"> Idle
+        <br>
+        <br>
+        <input type="submit" value="Analisis" class="btn btn-danger">
+    </form>
+</div>
