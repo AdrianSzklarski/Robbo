@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-wv)4t!$#^u$g5)_hwylvu221q$8fo)=&ew_blxi@7zpgjn2l^c'
+SECRET_KEY = 'django-insecure-0+n0^ns-^7s1o3b1dxg&)@9p=4c0d!t#9gqxsmhnn*5dq&0wc+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'robotapp'
+    'robot'
 ]
 
 MIDDLEWARE = [
@@ -123,8 +123,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-LOGIN_URL = '/login/'
 
 try:
     from Robot.local_settings import DATABASES
