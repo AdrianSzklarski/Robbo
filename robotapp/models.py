@@ -19,4 +19,4 @@ class CleanRobot(models.Model):
         verbose_name_plural = "CleanRobots"
 
     def __str__(self):
-        return self.name
+        return str(self.name)

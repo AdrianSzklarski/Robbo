@@ -1,7 +1,7 @@
 import math
 import os
 from random import randint
-
+from .models import CleanRobot
 import numpy as np
 from django.shortcuts import render, redirect
 from robotapp.calculate import Calc
@@ -22,12 +22,19 @@ def calculate(request):
     if request.GET.get('Manual'):
         c = round(math.sqrt(math.pow(num1, 2) + math.pow(num2, 2)), 1)
         ans.append(c)
+        cleanRobot = CleanRobot.objects.create(name=1, positionX=num1, positionY=num2)
+        cleanRobot.save()
 
     elif request.GET.get('Automatic'):
         ans1 = ([x for x in range(0, 20, 1)])  # X
-        ans2 = ([(randint(1, 2) * y) for y in range(0, 20, 1)])  # Y
-        ans3 = np.concatenate([ans1, ans2])
-        ans = f'X: {ans3[ans1]} Y: {ans3[ans2]}'
+        ans2 = ([(randint(1, 2) * y) for y in range(0, 20, 1)])
+
+        polaczenie = list(zip(ans1, ans2))
+        for posX, posY in polaczenie:
+            cleanRobot = CleanRobot.objects.create(name=2, positionX=posX, positionY=posY)
+            cleanRobot.save()
+
+        ans = polaczenie
 
     elif request.GET.get('Error'):
         ans = f'The robot has broken down, you need to get it serviced!'
@@ -36,7 +43,6 @@ def calculate(request):
         ans = f'The robot is waiting for a task'
 
     return render(request, 'calculate/calc.html', {"answer": ans})
-
 
 
     # WZÓR na SAVE
@@ -57,65 +63,29 @@ def calculate(request):
 
 
     # DZIAŁAJĄCY BLOK
-    # num1 = int(request.GET.get('value1'))
-    # num2 = int(request.GET.get('value2'))
-    # print(num1)
-    # print(num2)
-    # ans = []
-    #
-    # if request.GET.get('Manual'):
-    #     c = round(math.sqrt(math.pow(num1, 2) + math.pow(num2, 2)), 1)
-    #     ans.append(c)
-    #
-    # elif request.GET.get('Automatic'):
-    #     ans1 = ([x for x in range(0, 20, 1)])  # X
-    #     ans2 = ([(randint(1, 2) * y) for y in range(0, 20, 1)])  # Y
-    #     ans3 = np.concatenate([ans1, ans2])
-    #     ans = f'X: {ans3[ans1]} Y: {ans3[ans2]}'
-    #
-    # elif request.GET.get('Error'):
-    #     ans = f'The robot has broken down, you need to get it serviced!'
-    #
-    # elif request.GET.get('Idle'):
-    #     ans = f'The robot is waiting for a task'
-    #
-    # return render(request, 'calculate/calc.html', {"answer": ans})
-
-
-
-# Save?
 # def calculate(request):
 #
-#     def get(self, request, *arg, **kwargs):
-#         robbo = Robo()
-#         return render(request, 'calculate/calc.html', {'robot': robbo})
+#     num1 = int(request.GET.get('a'))
+#     num2 = int(request.GET.get('b'))
+#     print(num1)
+#     print(num2)
+#     ans = []
 #
-#     def post(self, request, *arg, **kwargs):
-#         form = Robo(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             num1 = int(request.POST.get('value1'))
-#             num2 = int(request.POST.get('value2'))
-#             print(num1)
-#             print(num2)
-#             ans = []
+#     if request.GET.get('Manual'):
+#         c = round(math.sqrt(math.pow(num1, 2) + math.pow(num2, 2)), 1)
+#         ans.append(c)
 #
-#             if request.POST.get('Manual'):
-#                 c = round(math.sqrt(math.pow(num1, 2) + math.pow(num2, 2)), 1)
-#                 ans.append(c)
+#     elif request.GET.get('Automatic'):
+#         ans1 = ([x for x in range(0, 20, 1)])  # X
+#         ans2 = ([(randint(1, 2) * y) for y in range(0, 20, 1)])  # Y
+#         ans3 = np.concatenate([ans1, ans2])
+#         ans = f'X: {ans3[ans1]} Y: {ans3[ans2]}'
 #
-#             elif request.POST.get('Automatic'):
-#                 ans1 = ([x for x in range(0, 20, 1)])  # X
-#                 ans2 = ([(randint(1, 2) * y) for y in range(0, 20, 1)])  # Y
-#                 ans3 = np.concatenate([ans1, ans2])
-#                 ans = f'X: {ans3[ans1]} Y: {ans3[ans2]}'
+#     elif request.GET.get('Error'):
+#         ans = f'The robot has broken down, you need to get it serviced!'
 #
-#             elif request.POST.get('Error'):
-#                 ans = f'The robot has broken down, you need to get it serviced!'
+#     elif request.GET.get('Idle'):
+#         ans = f'The robot is waiting for a task'
 #
-#             elif request.POST.get('Idle'):
-#                 ans = f'The robot is waiting for a task'
-#             return redirect('/')
-#         else:
-#             print(form.errors)
-#         return render(request, 'calculate/calc.html', {"answer": ans})
+#     return render(request, 'calculate/calc.html', {"answer": ans})
+
