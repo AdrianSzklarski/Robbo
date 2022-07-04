@@ -26,12 +26,14 @@ def calculate(request):
         cleanRobot.save()
 
     elif request.GET.get('Automatic'):
-        ans1 = ([x for x in range(0, 20, 1)])  # X
-        ans2 = ([(randint(1, 2) * y) for y in range(0, 20, 1)])
+        ans1 = [x for x in range(1, 20, 1)] # X
+        ans2 = [(randint(1, 2) * y) for y in range(1, 20, 1)]
+        vel = [round(math.sqrt((math.pow(ans1[i], 2) + math.pow(ans1[i], 2)))/1, 2) for i in range(0, len(ans1))]
 
-        polaczenie = list(zip(ans1, ans2))
-        for posX, posY in polaczenie:
-            cleanRobot = CleanRobot.objects.create(name=2, positionX=posX, positionY=posY)
+
+        polaczenie = list(zip(ans1, ans2, vel))
+        for posX, posY, v in polaczenie:
+            cleanRobot = CleanRobot.objects.create(name=2, positionX=posX, positionY=posY, velocity=v)
             cleanRobot.save()
 
         ans = polaczenie
