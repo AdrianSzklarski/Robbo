@@ -27,13 +27,13 @@ def calculate(request):
 
     elif request.GET.get('Automatic'):
         ans1 = [x for x in range(1, 20, 1)] # X
-        ans2 = [(randint(1, 2) * y) for y in range(1, 20, 1)]
-        vel = [round(math.sqrt((math.pow(ans1[i], 2) + math.pow(ans1[i], 2)))/1, 2) for i in range(0, len(ans1))]
+        ans2 = [(randint(1, 2) * y) for y in range(0, len(ans1), 1)]
+        vel = [round(math.sqrt((math.pow(ans1[i], 2) + math.pow(ans1[i], 2)))/1, 2) for i in range(0, len(ans1), 1)]
+        ang = [round((ans1[j] / ans2[j]) * (180/math.pi), 2) for j in range(1, len(ans1), 1)]
 
-
-        polaczenie = list(zip(ans1, ans2, vel))
-        for posX, posY, v in polaczenie:
-            cleanRobot = CleanRobot.objects.create(name=2, positionX=posX, positionY=posY, velocity=v)
+        polaczenie = list(zip(ans1, ans2, vel, ang))
+        for posX, posY, v, a in polaczenie:
+            cleanRobot = CleanRobot.objects.create(name=2, positionX=posX, positionY=posY, velocity=v, angleTHETA=a)
             cleanRobot.save()
 
         ans = polaczenie
